@@ -27,37 +27,37 @@ const services = [
   {
     num: "01",
     title: "Custom Website Design",
-    desc: "A tailored website built around your business, with a premium feel and a clear path that turns attention into enquiries.",
+    desc: "A website built specifically for your business, not a template with your logo dropped in. Designed to look polished on every screen and guide visitors toward getting in touch.",
     color: C.terracotta,
   },
   {
     num: "02",
-    title: "SEO Setup",
-    desc: "Clean structure, page titles, metadata, and search-friendly foundations so your business is easier to find when people are already looking.",
+    title: "Search Engine Optimisation",
+    desc: "Proper page structure, metadata, and indexing so your business appears when potential customers search for the services you offer.",
     color: C.amber,
   },
   {
     num: "03",
     title: "Hosting Setup & Handoff",
-    desc: "We handle setup and deployment, then hand everything over so you stay in control of your website from day one.",
+    desc: "We configure your hosting, deploy the finished site, and hand over full access. You own everything from day one, with no ongoing fees to us.",
     color: C.sage,
   },
   {
     num: "04",
-    title: "Speed & Performance",
-    desc: "Fast-loading pages, lighter effects, and cleaner code so the site feels smooth on real phones, tablets, and laptops.",
+    title: "Performance Optimisation",
+    desc: "Clean, lightweight code and optimised assets so your site loads quickly on any connection, because slow websites lose customers.",
     color: C.sky,
   },
   {
     num: "05",
     title: "Contact & Enquiry Forms",
-    desc: "A clearer enquiry flow with validation and basic anti-spam friction, designed to help serious leads reach you with less noise.",
+    desc: "Professionally designed forms with input validation, making it easy for genuine leads to reach you while keeping spam to a minimum.",
     color: C.coral,
   },
   {
     num: "06",
     title: "Google Business Integration",
-    desc: "Maps, local business visibility, and the right trust signals so nearby customers can find you and trust you faster.",
+    desc: "Your site connected to Google Maps and local search, giving nearby customers the confidence to find and choose your business.",
     color: C.plum,
   },
 ];
@@ -65,26 +65,26 @@ const services = [
 const processSteps = [
   {
     step: "1",
-    title: "Chat",
-    desc: "We learn about your business, your customers, and what the website needs to do for you.",
+    title: "Consultation",
+    desc: "We discuss your business, your customers, and what you need the website to achieve. A brief call or message is all it takes.",
     time: "Day 1",
   },
   {
     step: "2",
     title: "Design",
-    desc: "You get a visual direction early, then we refine the look and feel before the build is locked in.",
+    desc: "You receive a visual direction early on. We refine together until the look, feel, and structure are exactly right.",
     time: "Day 2-5",
   },
   {
     step: "3",
-    title: "Build",
-    desc: "The site is coded to be responsive, fast, and easier to maintain, while still feeling visually rich.",
+    title: "Development",
+    desc: "The approved design is built into a fully responsive, fast-loading website with SEO foundations in place.",
     time: "Day 5-10",
   },
   {
     step: "4",
     title: "Launch",
-    desc: "We test, deploy, and hand over access so the final result is live and fully yours.",
+    desc: "Final testing, hosting deployment, and a complete handover. Your website goes live and the access is entirely yours.",
     time: "Day 10-14",
   },
 ];
@@ -93,7 +93,7 @@ const plans = [
   {
     name: "Starter",
     price: "R2,000",
-    desc: "For businesses that need a clean, confident online presence.",
+    desc: "A clean, professional single-page website for businesses establishing their online presence.",
     best: false,
     features: [
       "Single-page website",
@@ -107,13 +107,13 @@ const plans = [
   {
     name: "Professional",
     price: "R3,500",
-    desc: "The strongest option for businesses ready to grow online.",
+    desc: "A comprehensive multi-page website built for businesses ready to grow their customer base online.",
     best: true,
     features: [
       "Multi-page website (up to 5 pages)",
       "Mobile responsive design",
-      "Enquiry form",
-      "SEO setup & Google indexing",
+      "Enquiry form with validation",
+      "Full SEO setup & Google indexing",
       "Hosting setup & deployment",
       "Google Maps integration",
       "Speed optimisation",
@@ -123,19 +123,22 @@ const plans = [
   {
     name: "Premium",
     price: "R5,000",
-    desc: "For businesses that want the most refined and complete result.",
+    desc: "The complete package for businesses that want the highest standard of online presence.",
     best: false,
     features: [
       "Multi-page website (up to 8 pages)",
-      "Advanced forms",
-      "SEO & analytics setup",
-      "Image optimisation",
-      "Social links integration",
+      "Advanced enquiry forms",
+      "Full SEO & analytics setup",
+      "Image & speed optimisation",
+      "Social media integration",
       "3 rounds of revisions",
       "30 days post-launch support",
     ],
   },
 ];
+
+const getSectionHref = (section, isAboutPage = false) =>
+  isAboutPage ? `/#${section}` : `#${section}`;
 
 const setMetaContent = (selector, content) => {
   const element = document.querySelector(selector);
@@ -422,10 +425,10 @@ const Navbar = ({ isAboutPage = false }) => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const links = ["Services", "How It Works", "Contact", "Pricing"];
-  const hrefs = isAboutPage
-    ? ["/#services", "/#process", "/#contact", "/#pricing"]
-    : ["#services", "#process", "#contact", "#pricing"];
+  const links = ["Services", "Process", "Pricing", "Contact"];
+  const hrefs = ["services", "process", "pricing", "contact"].map((section) =>
+    getSectionHref(section, isAboutPage)
+  );
 
   return (
     <nav
@@ -493,12 +496,12 @@ const Navbar = ({ isAboutPage = false }) => {
               </a>
             </div>
           </div>
-          <Button href={isAboutPage ? "/#contact" : "#contact"} style={{ marginLeft: 10, padding: "12px 24px", fontSize: 14 }}>
+          <Button href={getSectionHref("contact", isAboutPage)} style={{ marginLeft: 10, padding: "12px 24px", fontSize: 14 }}>
             Get a Quote
           </Button>
         </div>
 
-        <button className="mobile-menu-btn" onClick={() => setMenuOpen((v) => !v)} style={{ display: "none", background: "none", border: "none", padding: 8 }}>
+        <button className="mobile-menu-btn" onClick={() => setMenuOpen((v) => !v)} style={{ display: "none", background: "none", border: "none", padding: 8, cursor: "pointer" }}>
           <div style={{ width: 24, height: 2, background: C.dark, marginBottom: 5 }} />
           <div style={{ width: 24, height: 2, background: C.dark, marginBottom: 5 }} />
           <div style={{ width: 24, height: 2, background: C.dark }} />
@@ -532,34 +535,34 @@ const Hero = () => (
         <div style={{ maxWidth: 660, position: "relative", zIndex: 3 }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "8px 18px", borderRadius: 999, background: `${C.terracotta}10`, border: `1px solid ${C.terracotta}12`, marginBottom: 28 }}>
             <span style={{ width: 8, height: 8, borderRadius: "50%", background: C.sage }} />
-            <span style={{ fontSize: 12, fontWeight: 700, color: C.warmGray, letterSpacing: 1.5, textTransform: "uppercase" }}>Now taking clients</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: C.warmGray, letterSpacing: 1.5, textTransform: "uppercase" }}>Accepting new clients</span>
           </div>
 
           <h1 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: "clamp(42px, 7vw, 76px)", lineHeight: 1.02, letterSpacing: -1.2, color: C.dark, marginBottom: 24 }}>
-            Your business
+            A professional
             <br />
-            deserves a site
+            website your
             <br />
-            <span style={{ color: C.terracotta, fontStyle: "italic", fontWeight: 400 }}>that gets remembered</span>
+            <span style={{ color: C.terracotta, fontStyle: "italic", fontWeight: 400 }}>business deserves</span>
             <span style={{ color: C.plum }}>.</span>
           </h1>
 
-          <p style={{ fontSize: 18, lineHeight: 1.8, color: C.warmGray, maxWidth: 560, marginBottom: 38 }}>
-            Terra builds premium small-business websites that feel alive, look polished on mobile, and help the right customers trust you faster. When people search for businesses like yours and you barely show up, we are here to change that.
+          <p style={{ fontSize: 18, lineHeight: 1.8, color: C.warmGray, maxWidth: 540, marginBottom: 38 }}>
+            Terra designs and builds polished, high-performing websites for small businesses, crafted to establish credibility, attract the right customers, and deliver results from the moment you go live.
           </p>
 
           <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 46 }}>
-            <Button href="#pricing">See Pricing</Button>
+            <Button href="#pricing">View Pricing</Button>
             <Button href="#services" variant="secondary">
-              What&apos;s Included
+              Explore Services
             </Button>
           </div>
 
           <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
             {[
-              { label: "Built in 1-2 weeks", color: C.amber },
-              { label: "Mobile-first", color: C.sky },
-              { label: "SEO included", color: C.sage },
+              { label: "Delivered in 1-2 weeks", color: C.amber },
+              { label: "Mobile-first design", color: C.sky },
+              { label: "SEO foundations included", color: C.sage },
             ].map((item) => (
               <div key={item.label} style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 16px", borderRadius: 999, background: "rgba(255,255,255,0.48)", border: `1px solid ${item.color}40` }}>
                 <span style={{ width: 10, height: 10, borderRadius: "50%", background: item.color, boxShadow: `0 0 0 6px ${item.color}18` }} />
@@ -612,12 +615,15 @@ const ServicesSection = () => (
   <Section id="services" bg={C.cream}>
     <Wrap>
       <div style={{ marginBottom: 58 }}>
-        <Label>What You Get</Label>
+        <Label>Services</Label>
         <h2 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: "clamp(30px,4vw,50px)", lineHeight: 1.14, marginTop: 16, color: C.dark }}>
-          Everything your business
+          A complete website
           <br />
-          needs online<span style={{ color: C.terracotta }}>.</span>
+          solution, delivered<span style={{ color: C.terracotta }}>.</span>
         </h2>
+        <p style={{ fontSize: 16, lineHeight: 1.8, color: C.warmGray, marginTop: 14, maxWidth: 520 }}>
+          Every project includes the essentials your business needs to look credible and perform well online.
+        </p>
       </div>
       <div className="services-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: 20 }}>
         {services.map((service) => (
@@ -638,13 +644,14 @@ const ProcessSection = () => (
   <Section id="process">
     <Wrap>
       <div style={{ textAlign: "center", marginBottom: 68 }}>
-        <Label>How It Works</Label>
+        <Label>Our Process</Label>
         <h2 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: "clamp(30px,4vw,50px)", lineHeight: 1.14, marginTop: 16, color: C.dark }}>
-          Simple, clear
-          <span style={{ color: C.terracotta }}>.</span>
+          From brief to launch
+          <br />
+          in two weeks<span style={{ color: C.terracotta }}>.</span>
         </h2>
-        <p style={{ fontSize: 16, color: C.warmGray, margin: "16px auto 0", maxWidth: 520, lineHeight: 1.8 }}>
-          A smooth process with clear feedback points, so the final website feels intentional instead of rushed.
+        <p style={{ fontSize: 16, color: C.warmGray, margin: "16px auto 0", maxWidth: 500, lineHeight: 1.8 }}>
+          A structured, transparent process with clear milestones at every stage, so you always know exactly where things stand.
         </p>
       </div>
       <div className="process-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 26 }}>
@@ -671,14 +678,16 @@ const PricingSection = () => {
         <div style={{ textAlign: "center", marginBottom: 62 }}>
           <Label>Pricing</Label>
           <h2 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: "clamp(30px,4vw,50px)", lineHeight: 1.14, marginTop: 16, color: C.dark }}>
-            One-time payment<span style={{ color: C.terracotta }}>.</span>
+            Transparent, one-time pricing<span style={{ color: C.terracotta }}>.</span>
           </h2>
-          <p style={{ fontSize: 16, color: C.warmGray, marginTop: 12 }}>No subscriptions. No hidden fees. You own everything.</p>
+          <p style={{ fontSize: 16, color: C.warmGray, margin: "12px auto 0", maxWidth: 460 }}>
+            No monthly retainers. No hidden costs. A single investment, and the website is yours to keep.
+          </p>
         </div>
         <div className="pricing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: 20, alignItems: "start" }}>
           {plans.map((plan, index) => (
             <div key={plan.name} onMouseEnter={() => setHovered(index)} style={{ background: plan.best ? `linear-gradient(160deg, ${C.espresso}, #443026)` : C.card, color: plan.best ? C.white : C.dark, borderRadius: 24, padding: 34, border: plan.best ? "none" : `1px solid ${C.sand}66`, boxShadow: hovered === index ? "0 24px 50px rgba(28,22,18,0.08)" : "none", transform: hovered === index ? "translateY(-4px)" : "none", transition: "all 0.35s ease", position: "relative" }}>
-              {plan.best ? <div style={{ position: "absolute", top: -12, right: 24, background: `linear-gradient(135deg, ${C.terracotta}, ${C.plum})`, color: C.white, padding: "7px 16px", borderRadius: 999, fontSize: 11, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase" }}>Most Popular</div> : null}
+              {plan.best ? <div style={{ position: "absolute", top: -12, right: 24, background: `linear-gradient(135deg, ${C.terracotta}, ${C.plum})`, color: C.white, padding: "7px 16px", borderRadius: 999, fontSize: 11, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase" }}>Recommended</div> : null}
               <h3 style={{ fontSize: 13, fontWeight: 800, letterSpacing: 1.7, textTransform: "uppercase", color: plan.best ? "rgba(255,255,255,0.65)" : C.warmGray }}>{plan.name}</h3>
               <div style={{ fontSize: 46, fontWeight: 700, fontFamily: "'Libre Baskerville', serif", margin: "14px 0 10px" }}>{plan.price}</div>
               <p style={{ fontSize: 14, lineHeight: 1.7, color: plan.best ? "rgba(255,255,255,0.72)" : C.warmGray, marginBottom: 24 }}>{plan.desc}</p>
@@ -696,50 +705,23 @@ const PricingSection = () => {
             </div>
           ))}
         </div>
+        <p style={{ textAlign: "center", marginTop: 28, fontSize: 14, color: C.muted, lineHeight: 1.7 }}>
+          Need something beyond these packages?{" "}
+          <a href="#contact" style={{ color: C.terracotta, textDecoration: "underline", textUnderlineOffset: 3 }}>
+            Get in touch
+          </a>{" "}
+          for a tailored quote.
+        </p>
       </Wrap>
     </Section>
   );
 };
 
-const AboutSection = () => (
-  <Section id="about">
-    <Wrap>
-      <div className="about-grid" style={{ display: "grid", gridTemplateColumns: "minmax(280px, 0.9fr) minmax(320px, 1.1fr)", gap: 48, alignItems: "center" }}>
-        <div style={{ minHeight: 390, borderRadius: 24, background: `linear-gradient(155deg, ${C.espresso}, #3d2e25)`, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 30px 60px ${C.espresso}22`, position: "relative", overflow: "hidden" }}>
-          <div style={{ textAlign: "center", padding: 40, zIndex: 1 }}>
-            <div style={{ width: 102, height: 102, borderRadius: "50%", margin: "0 auto 20px", background: `linear-gradient(135deg, ${C.terracotta}, ${C.plum})`, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 12px 32px ${C.terracotta}44` }}>
-              <span style={{ fontSize: 40, fontFamily: "'Libre Baskerville', serif", color: C.white, fontWeight: 700 }}>F</span>
-            </div>
-            <p style={{ fontSize: 22, color: C.white, fontFamily: "'Libre Baskerville', serif", fontWeight: 700 }}>Franko de Beer</p>
-            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", marginTop: 6 }}>Founder - Terra Design</p>
-          </div>
-          <div style={{ position: "absolute", width: 220, height: 220, bottom: -50, right: -30, borderRadius: "50%", background: `${C.sky}16` }} />
-        </div>
-
-        <div>
-          <Label>About Terra</Label>
-          <h2 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: "clamp(28px,3.5vw,44px)", lineHeight: 1.18, marginTop: 16, marginBottom: 22, color: C.dark }}>
-            Built for small
-            <br />
-            businesses<span style={{ color: C.terracotta }}>.</span>
-          </h2>
-          <p style={{ fontSize: 16, lineHeight: 1.85, color: C.warmGray, marginBottom: 18 }}>
-            Terra is a South African web design studio focused on small businesses that want a professional website without being locked into endless monthly contracts.
-          </p>
-          <p style={{ fontSize: 16, lineHeight: 1.85, color: C.warmGray }}>
-            The goal is simple: a website that feels premium, performs beautifully on mobile, and gives your business a real presence when people go looking for you online.
-          </p>
-        </div>
-      </div>
-    </Wrap>
-  </Section>
-);
-
 const AboutPage = () => {
   usePageMeta({
-    title: "About Terra Design | Built for Small Businesses",
+    title: "About Terra Design | Professional Websites for Small Businesses",
     description:
-      "Learn how Terra Design approaches affordable one-time website builds for small businesses that need a stronger online presence without long-term retainers.",
+      "Terra Design delivers affordable, professionally built websites for small businesses with one-time pricing, complete ownership, and a stronger online presence.",
     pathname: "/about",
   });
 
@@ -763,22 +745,22 @@ const AboutPage = () => {
             <div>
               <Label>About Terra</Label>
               <h1 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: "clamp(34px,5vw,58px)", lineHeight: 1.06, marginTop: 18, marginBottom: 22, color: C.dark }}>
-                Premium websites
+                Professional websites
                 <br />
-                for businesses that
+                built for businesses
                 <br />
-                need to be found<span style={{ color: C.terracotta }}>.</span>
+                that want to grow<span style={{ color: C.terracotta }}>.</span>
               </h1>
               <p style={{ fontSize: 17, lineHeight: 1.9, color: C.warmGray, marginBottom: 20 }}>
-                Terra Design is built around a simple idea: most small businesses do not need an overpriced agency retainer. They need a sharp, trustworthy website that gives them a real presence when customers search online.
+                Terra Design was founded on a simple observation: most small businesses do not need a full-service agency. They need a well-crafted website that establishes credibility and helps customers find them.
               </p>
               <p style={{ fontSize: 17, lineHeight: 1.9, color: C.warmGray, marginBottom: 28 }}>
-                The approach is intentionally practical: one-time pricing, focused scope, fast turnarounds, and a result that feels more premium than the price suggests.
+                The approach is deliberately focused: one-time pricing, defined scope, efficient timelines, and a finished product that consistently feels more premium than the investment.
               </p>
               <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-                <Button href="/#contact">Start a Project</Button>
-                <Button href="/#pricing" variant="secondary">
-                  See Pricing
+                <Button href={getSectionHref("contact", true)}>Start a Project</Button>
+                <Button href={getSectionHref("pricing", true)} variant="secondary">
+                  View Pricing
                 </Button>
               </div>
             </div>
@@ -789,28 +771,28 @@ const AboutPage = () => {
       <Section bg={C.cream}>
         <Wrap>
           <div style={{ textAlign: "center", marginBottom: 52 }}>
-            <Label>Positioning</Label>
+            <Label>Our Approach</Label>
             <h2 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: "clamp(30px,4vw,48px)", lineHeight: 1.12, marginTop: 16, color: C.dark }}>
-              Clear offer,
+              Clear principles,
               <br />
-              focused strategy<span style={{ color: C.terracotta }}>.</span>
+              consistent results<span style={{ color: C.terracotta }}>.</span>
             </h2>
           </div>
           <div className="about-strategy-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 250px), 1fr))", gap: 20 }}>
             {[
               {
-                title: "Who it is for",
-                text: "Service businesses, local brands, trades, salons, restaurants, studios, and owners who need a cleaner first impression online.",
+                title: "Who we serve",
+                text: "Service businesses, local brands, restaurants, salons, tradespeople, and professionals who need a polished digital presence that reflects the quality of their work.",
                 color: C.terracotta,
               },
               {
-                title: "Why pricing stays accessible",
-                text: "Terra keeps the scope focused on what most small businesses actually need: a polished website, clear positioning, and mobile-ready conversion flow.",
+                title: "Why our pricing works",
+                text: "We focus on what drives results for small businesses: clean design, mobile performance, and search visibility, without inflating the scope or the invoice.",
                 color: C.sky,
               },
               {
-                title: "What makes it work",
-                text: "A premium visual identity, fast delivery, one-time pricing, and content that helps the business sound established instead of generic.",
+                title: "What sets us apart",
+                text: "A premium visual standard paired with practical delivery: fixed pricing, fast turnaround, and copy that positions your business as established and trustworthy.",
                 color: C.sage,
               },
             ].map((item) => (
@@ -842,20 +824,20 @@ const CTASection = ({ isAboutPage = false }) => {
           <div className="cta-grid" style={{ display: "grid", gridTemplateColumns: "1fr 0.92fr", gap: 28, alignItems: "start", position: "relative", zIndex: 2 }}>
             <div>
               <h2 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: "clamp(30px,4vw,48px)", lineHeight: 1.12, color: C.white, marginBottom: 14 }}>
-                Ready for a stronger
+                Let&apos;s discuss
                 <br />
-                online presence<span style={{ color: "rgba(255,255,255,0.6)" }}>?</span>
+                your project<span style={{ color: "rgba(255,255,255,0.6)" }}>.</span>
               </h2>
               <p style={{ fontSize: 16, lineHeight: 1.8, color: "rgba(255,255,255,0.78)", maxWidth: 480, marginBottom: 26 }}>
-                Send a quick brief and Terra will get back to you with a practical plan, timeline, and quote that fits your business. This form now submits to a real hosted backend instead of opening a draft email.
+                Share a few details about your business and what you need. Terra will respond with a recommended approach, timeline, and quote with no obligation.
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 <Button variant="dark" href={`mailto:${CONTACT_EMAIL}`}>
-                  Email Us
+                  Email Directly
                 </Button>
                 {isAboutPage ? (
-                  <Button variant="light" href="/#pricing">
-                    See Pricing
+                  <Button variant="light" href={getSectionHref("pricing", true)}>
+                    View Pricing
                   </Button>
                 ) : null}
               </div>
@@ -867,11 +849,11 @@ const CTASection = ({ isAboutPage = false }) => {
               <input type="hidden" name="_next" value={nextUrl} />
               <input type="text" name="_honey" tabIndex={-1} autoComplete="off" style={{ position: "absolute", left: -9999, opacity: 0, pointerEvents: "none" }} />
               <div style={{ display: "grid", gap: 12 }}>
-                <input name="name" placeholder="Your name" style={inputStyle(true)} required />
-                <input name="email" type="email" placeholder="Your email" style={inputStyle(true)} required />
-                <input name="business" placeholder="Business name" style={inputStyle(true)} />
-                <textarea name="message" placeholder="Tell us what you need from the website." style={{ ...inputStyle(false), minHeight: 120, resize: "vertical" }} required />
-                <Button>Send Enquiry</Button>
+                <input name="name" placeholder="Full name" style={inputStyle(true)} required />
+                <input name="email" type="email" placeholder="Email address" style={inputStyle(true)} required />
+                <input name="business" placeholder="Business name (optional)" style={inputStyle(true)} />
+                <textarea name="message" placeholder="Briefly describe what you need, your type of business, number of pages, or any specific requirements." style={{ ...inputStyle(false), minHeight: 120, resize: "vertical" }} required />
+                <Button>Submit Enquiry</Button>
                 <p style={{ color: "rgba(255,255,255,0.9)", fontSize: 13, lineHeight: 1.6 }}>
                   After submission you&apos;ll land on a confirmation page and the enquiry will be sent through the hosted form backend. The first live submission may ask you to confirm the email address once.
                 </p>
@@ -896,17 +878,42 @@ const inputStyle = (singleLine) => ({
   outline: "none",
 });
 
-const Footer = () => (
+const Footer = ({ isAboutPage = false }) => (
   <footer style={{ padding: "46px 22px 28px", background: C.cream, borderTop: `1px solid ${C.sand}44`, position: "relative", zIndex: 1 }}>
     <Wrap>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
-        <div>
-          <span style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 20, fontWeight: 700, color: C.dark }}>
-            Terra<span style={{ color: C.terracotta }}>.</span>
-          </span>
-          <p style={{ fontSize: 13, lineHeight: 1.7, color: C.warmGray, marginTop: 10 }}>Professional websites for small businesses, built with personality, clarity, and real online presence.</p>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 32, flexWrap: "wrap" }}>
+        <div style={{ maxWidth: 320 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+            <div style={{ width: 32, height: 32, borderRadius: 8, background: `linear-gradient(135deg, ${C.terracotta}, ${C.plum})`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ color: C.white, fontWeight: 800, fontSize: 14, fontFamily: "'Libre Baskerville', serif" }}>T</span>
+            </div>
+            <span style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 18, fontWeight: 700, color: C.dark }}>
+              Terra<span style={{ color: C.terracotta }}>.</span>
+            </span>
+          </div>
+          <p style={{ fontSize: 13, lineHeight: 1.7, color: C.warmGray }}>
+            Professional web design for small businesses. One-time investment, complete ownership, lasting results.
+          </p>
         </div>
-        <p style={{ fontSize: 12, color: C.muted }}>{new Date().getFullYear()} Terra Design. South Africa.</p>
+        <div style={{ display: "flex", gap: 48, flexWrap: "wrap" }}>
+          <div>
+            <h4 style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", marginBottom: 14, color: C.espresso }}>Navigate</h4>
+            <a href={getSectionHref("services", isAboutPage)} style={{ display: "block", fontSize: 14, color: C.warmGray, textDecoration: "none", marginBottom: 10 }}>Services</a>
+            <a href={getSectionHref("process", isAboutPage)} style={{ display: "block", fontSize: 14, color: C.warmGray, textDecoration: "none", marginBottom: 10 }}>Process</a>
+            <a href={getSectionHref("pricing", isAboutPage)} style={{ display: "block", fontSize: 14, color: C.warmGray, textDecoration: "none", marginBottom: 10 }}>Pricing</a>
+            <a href={getSectionHref("contact", isAboutPage)} style={{ display: "block", fontSize: 14, color: C.warmGray, textDecoration: "none", marginBottom: 10 }}>Contact</a>
+            <a href="/about" style={{ display: "block", fontSize: 14, color: C.warmGray, textDecoration: "none" }}>About</a>
+          </div>
+          <div>
+            <h4 style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", marginBottom: 14, color: C.espresso }}>Contact</h4>
+            <a href={`mailto:${CONTACT_EMAIL}`} style={{ display: "block", fontSize: 14, color: C.warmGray, textDecoration: "none", marginBottom: 10 }}>{CONTACT_EMAIL}</a>
+            <p style={{ fontSize: 14, color: C.warmGray }}>South Africa</p>
+          </div>
+        </div>
+      </div>
+      <div style={{ borderTop: `1px solid ${C.sand}44`, marginTop: 28, paddingTop: 20, display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
+        <p style={{ fontSize: 12, color: C.muted }>&copy; {new Date().getFullYear()} Terra Design. All rights reserved.</p>
+        <p style={{ fontSize: 12, color: `${C.muted}88` }}>Designed and built in South Africa</p>
       </div>
     </Wrap>
   </footer>
@@ -914,9 +921,9 @@ const Footer = () => (
 
 const HomePage = () => {
   usePageMeta({
-    title: "Terra Design | Premium Websites for Small Businesses",
+    title: "Terra Design | Professional Websites for Small Businesses",
     description:
-      "Terra Design builds premium small-business websites with mobile-first design, SEO foundations, and a stronger online presence.",
+      "Terra Design builds professional, high-performing websites for small businesses with mobile-first design, SEO foundations, and complete ownership from day one.",
     pathname: "/",
   });
 
@@ -925,8 +932,8 @@ const HomePage = () => {
       <Hero />
       <ServicesSection />
       <ProcessSection />
-      <CTASection />
       <PricingSection />
+      <CTASection />
     </>
   );
 };
@@ -943,12 +950,14 @@ export default function App() {
         html{scroll-behavior:smooth}
         body{font-family:'DM Sans',sans-serif;background:${C.bg};color:${C.dark};overflow-x:hidden}
         a,button,input,textarea{font-family:inherit}
+        ::selection{background:${C.terracotta}28;color:${C.dark}}
         @keyframes blobDrift{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-14px) rotate(7deg)}}
         @keyframes floatOne{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
         @keyframes floatTwo{0%,100%{transform:translateY(0)}50%{transform:translateY(18px)}}
         @keyframes floatThree{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
         .desktop-nav a:hover{background:${C.sand}55;color:${C.espresso}}
         .button:hover{transform:translateY(-2px)}
+        input:focus,textarea:focus{border-color:${C.terracotta}66;box-shadow:0 0 0 3px ${C.terracotta}12}
         input::placeholder,textarea::placeholder{color:${C.muted}}
         @media (max-width: 900px){
           .desktop-nav{display:none !important}
@@ -967,7 +976,7 @@ export default function App() {
       <BouncingSpheres />
       <Navbar isAboutPage={isAboutPage} />
       {isAboutPage ? <AboutPage /> : <HomePage />}
-      <Footer />
+      <Footer isAboutPage={isAboutPage} />
     </>
   );
 }
