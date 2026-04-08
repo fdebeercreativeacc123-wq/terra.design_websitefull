@@ -912,7 +912,7 @@ const Footer = ({ isAboutPage = false }) => (
         </div>
       </div>
       <div style={{ borderTop: `1px solid ${C.sand}44`, marginTop: 28, paddingTop: 20, display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
-        <p style={{ fontSize: 12, color: C.muted }>&copy; {new Date().getFullYear()} Terra Design. All rights reserved.</p>
+        <p style={{ fontSize: 12, color: C.muted }>(c) {new Date().getFullYear()} Terra Design. All rights reserved.</p>
         <p style={{ fontSize: 12, color: `${C.muted}88` }}>Designed and built in South Africa</p>
       </div>
     </Wrap>
