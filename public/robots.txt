@@ -1,0 +1,5 @@
+User-agent: *
+Disallow:
+
+Allow: /
+Sitemap: https://terradesign.co/sitemap.xml
