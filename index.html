@@ -2,54 +2,181 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Frank Sites builds professional, high-performing websites for small businesses with mobile-first design, SEO foundations, and complete ownership from day one." />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#c96b3c" />
+    <meta name="format-detection" content="telephone=no" />
 
-    <meta
-      name="description"
-      content="Terra Design builds premium small-business websites with one-time pricing, strong mobile design, SEO foundations, and a polished online presence."
-    />
+    <title>Frank Sites | Professional Websites for Small Businesses</title>
+    <link rel="canonical" href="https://franksites.co/" />
+    <link rel="alternate" hreflang="en-za" href="https://franksites.co/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_ZA" />
+    <meta property="og:site_name" content="Frank Sites" />
+    <meta property="og:title" content="Frank Sites | Professional Websites for Small Businesses" />
+    <meta property="og:description" content="Frank Sites builds professional, high-performing websites for small businesses with mobile-first design, SEO foundations, and complete ownership from day one." />
+    <meta property="og:url" content="https://franksites.co/" />
+    <meta property="og:image" content="https://franksites.co/favicon.svg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Frank Sites | Professional Websites for Small Businesses" />
+    <meta name="twitter:description" content="Frank Sites builds professional, high-performing websites for small businesses with mobile-first design, SEO foundations, and complete ownership from day one." />
+    <meta name="twitter:image" content="https://franksites.co/favicon.svg" />
+    <meta name="twitter:url" content="https://franksites.co/" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" />
+
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss: http: https:; form-action 'self' mailto: https://formsubmit.co;"
     />
-    <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#c96b3c" />
-    <link rel="canonical" href="https://terradesign.co/" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Terra Design | Premium Websites for Small Businesses" />
-    <meta
-      property="og:description"
-      content="Premium small-business websites with one-time pricing, mobile-first design, SEO foundations, and a stronger online presence."
-    />
-    <meta property="og:url" content="https://terradesign.co/" />
-    <meta property="og:image" content="https://terradesign.co/favicon.svg" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Terra Design | Premium Websites for Small Businesses" />
-    <meta
-      name="twitter:description"
-      content="Premium small-business websites with one-time pricing, mobile-first design, SEO foundations, and a stronger online presence."
-    />
-    <meta name="twitter:image" content="https://terradesign.co/favicon.svg" />
-
-    <script type="application/ld+json">
+    <script id="structured-data" type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "Terra Design",
-        "url": "https://terradesign.co/",
-        "email": "hello@terradesign.co",
-        "areaServed": "South Africa",
-        "description": "Terra Design builds premium websites for small businesses with one-time pricing, mobile-first design and SEO foundations."
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://franksites.co/#organization",
+            "name": "Frank Sites",
+            "url": "https://franksites.co/",
+            "email": "frankdesignza@gmail.com",
+            "areaServed": "South Africa",
+            "logo": "https://franksites.co/favicon.svg"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://franksites.co/#website",
+            "url": "https://franksites.co/",
+            "name": "Frank Sites",
+            "inLanguage": "en-ZA",
+            "publisher": {
+              "@id": "https://franksites.co/#organization"
+            }
+          },
+          {
+            "@type": "ProfessionalService",
+            "@id": "https://franksites.co/#professional-service",
+            "name": "Frank Sites",
+            "description": "Frank Sites builds professional, high-performing websites for small businesses with mobile-first design, SEO foundations, and complete ownership from day one.",
+            "url": "https://franksites.co/",
+            "email": "frankdesignza@gmail.com",
+            "areaServed": "South Africa",
+            "provider": {
+              "@id": "https://franksites.co/#organization"
+            }
+          },
+          {
+            "@type": "Service",
+            "@id": "https://franksites.co/#service-1",
+            "name": "Custom Website Design",
+            "serviceType": "Custom Website Design",
+            "areaServed": "South Africa",
+            "provider": {
+              "@id": "https://franksites.co/#organization"
+            },
+            "url": "https://franksites.co/#services"
+          },
+          {
+            "@type": "Service",
+            "@id": "https://franksites.co/#service-2",
+            "name": "Search Engine Optimisation",
+            "serviceType": "Search Engine Optimisation",
+            "areaServed": "South Africa",
+            "provider": {
+              "@id": "https://franksites.co/#organization"
+            },
+            "url": "https://franksites.co/#services"
+          },
+          {
+            "@type": "Service",
+            "@id": "https://franksites.co/#service-3",
+            "name": "Hosting Setup and Handoff",
+            "serviceType": "Hosting Setup and Handoff",
+            "areaServed": "South Africa",
+            "provider": {
+              "@id": "https://franksites.co/#organization"
+            },
+            "url": "https://franksites.co/#services"
+          },
+          {
+            "@type": "Service",
+            "@id": "https://franksites.co/#service-4",
+            "name": "Performance Optimisation",
+            "serviceType": "Performance Optimisation",
+            "areaServed": "South Africa",
+            "provider": {
+              "@id": "https://franksites.co/#organization"
+            },
+            "url": "https://franksites.co/#services"
+          },
+          {
+            "@type": "Service",
+            "@id": "https://franksites.co/#service-5",
+            "name": "Contact and Enquiry Forms",
+            "serviceType": "Contact and Enquiry Forms",
+            "areaServed": "South Africa",
+            "provider": {
+              "@id": "https://franksites.co/#organization"
+            },
+            "url": "https://franksites.co/#services"
+          },
+          {
+            "@type": "Service",
+            "@id": "https://franksites.co/#service-6",
+            "name": "Google Business Integration",
+            "serviceType": "Google Business Integration",
+            "areaServed": "South Africa",
+            "provider": {
+              "@id": "https://franksites.co/#organization"
+            },
+            "url": "https://franksites.co/#services"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://franksites.co/#breadcrumbs",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://franksites.co/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Services",
+                "item": "https://franksites.co/#services"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Pricing",
+                "item": "https://franksites.co/#pricing"
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "Contact",
+                "item": "https://franksites.co/#contact"
+              }
+            ]
+          }
+        ]
       }
     </script>
-
-    <title>Terra Design | Premium Websites for Small Businesses</title>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <p>JavaScript is disabled. This website is still fully viewable, but animations are reduced.</p>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

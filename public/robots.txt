@@ -1,5 +1,6 @@
 User-agent: *
-Disallow:
+Disallow: /thanks.html
 
 Allow: /
-Sitemap: https://terradesign.co/sitemap.xml
+Host: https://franksites.co
+Sitemap: https://franksites.co/sitemap.xml

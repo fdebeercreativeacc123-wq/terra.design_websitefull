@@ -1,16 +1,26 @@
-# React + Vite
+# Frank Sites Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Production website for Frank Sites, built with React and Vite.
 
-Currently, two official plugins are available:
+## Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- `npm run dev` starts the local development server.
+- `npm run build` creates a prerendered production build in `dist/`.
+- `npm run preview` previews the built site locally.
+- `npm run lint` runs ESLint checks.
 
-## React Compiler
+## Deployment (Vercel)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This project is static and deploys directly on Vercel with default Vite settings.
 
-## Expanding the ESLint configuration
+- Framework preset: `Vite`
+- Build command: `npm run build`
+- Output directory: `dist`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Notes
+
+- `public/robots.txt` and `public/sitemap.xml` are included.
+- `public/site.webmanifest` is included.
+- Metadata and Open Graph tags are defined in `index.html`.
+- Contact form submits via FormSubmit and redirects to `public/thanks.html`.
+- SEO settings for React-rendered pages are centralized in `src/seo/siteSeo.js`.

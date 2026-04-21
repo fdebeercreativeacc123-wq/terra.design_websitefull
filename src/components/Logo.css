@@ -1,0 +1,7 @@
+.fs-logo {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
