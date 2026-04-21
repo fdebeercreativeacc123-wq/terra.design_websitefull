@@ -1,0 +1,17 @@
+{
+  "name": "Frank Sites",
+  "short_name": "Frank Sites",
+  "description": "Professional websites for small businesses with SEO foundations and complete ownership.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbf7f2",
+  "theme_color": "#c96b3c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
