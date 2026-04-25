@@ -2,5 +2,5 @@ User-agent: *
 Disallow: /thanks.html
 
 Allow: /
-Host: https://franksites.co
-Sitemap: https://franksites.co/sitemap.xml
+Host: https://franksites.co.za
+Sitemap: https://franksites.co.za/sitemap.xml
