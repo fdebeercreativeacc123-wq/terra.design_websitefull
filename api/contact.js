@@ -5,7 +5,7 @@ const sendJson = (res, status, body) => {
   return res.json(body);
 };
 
-const isAllowedOrigin = (origin) => {
+const isAllowedOrigin = (origin, host) => {
   const configuredOrigins = (process.env.ALLOWED_ORIGINS || "")
     .split(",")
     .map((value) => value.trim())
@@ -19,7 +19,31 @@ const isAllowedOrigin = (origin) => {
     ...configuredOrigins,
   ]);
 
-  return !origin || allowList.has(origin);
+  if (!origin) {
+    return true;
+  }
+
+  if (allowList.has(origin)) {
+    return true;
+  }
+
+  try {
+    const originUrl = new URL(origin);
+    const normalizedHost = String(host || "").toLowerCase();
+
+    if (
+      originUrl.protocol === "https:" &&
+      originUrl.hostname.endsWith(".vercel.app") &&
+      normalizedHost.endsWith(".vercel.app") &&
+      originUrl.host.toLowerCase() === normalizedHost
+    ) {
+      return true;
+    }
+  } catch {
+    return false;
+  }
+
+  return false;
 };
 
 const sanitizeLine = (value, maxLength) =>
@@ -44,7 +68,8 @@ export default async function handler(req, res) {
   }
 
   const origin = req.headers.origin;
-  if (!isAllowedOrigin(origin)) {
+  const host = req.headers.host;
+  if (!isAllowedOrigin(origin, host)) {
     return sendJson(res, 403, { ok: false, message: "Origin not allowed." });
   }
 
