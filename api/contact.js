@@ -1,13 +1,9 @@
 /* global process */
 
-const json = (status, body) =>
-  new Response(JSON.stringify(body), {
-    status,
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "no-store",
-    },
-  });
+const sendJson = (res, status, body) => {
+  res.status(status).setHeader("Cache-Control", "no-store");
+  return res.json(body);
+};
 
 const isAllowedOrigin = (origin) => {
   const configuredOrigins = (process.env.ALLOWED_ORIGINS || "")
@@ -42,14 +38,14 @@ const sanitizeBlock = (value, maxLength) =>
 
 const validEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
-export default async function handler(request) {
-  if (request.method !== "POST") {
-    return json(405, { ok: false, message: "Method not allowed." });
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return sendJson(res, 405, { ok: false, message: "Method not allowed." });
   }
 
-  const origin = request.headers.get("origin");
+  const origin = req.headers.origin;
   if (!isAllowedOrigin(origin)) {
-    return json(403, { ok: false, message: "Origin not allowed." });
+    return sendJson(res, 403, { ok: false, message: "Origin not allowed." });
   }
 
   const resendApiKey = process.env.RESEND_API_KEY;
@@ -57,41 +53,49 @@ export default async function handler(request) {
   const contactFrom = process.env.CONTACT_FROM || "Frank Sites <onboarding@resend.dev>";
 
   if (!resendApiKey) {
-    return json(500, {
+    return sendJson(res, 500, {
       ok: false,
       message: "Contact form is not configured yet. Please email us directly for now.",
     });
   }
 
-  let payload;
-  try {
-    payload = await request.json();
-  } catch {
-    return json(400, { ok: false, message: "Invalid request body." });
+  const body =
+    typeof req.body === "string"
+      ? (() => {
+          try {
+            return JSON.parse(req.body);
+          } catch {
+            return null;
+          }
+        })()
+      : req.body;
+
+  if (!body || typeof body !== "object") {
+    return sendJson(res, 400, { ok: false, message: "Invalid request body." });
   }
 
-  const name = sanitizeLine(payload?.name, 120);
-  const email = sanitizeLine(payload?.email, 160).toLowerCase();
-  const business = sanitizeLine(payload?.business, 160);
-  const message = sanitizeBlock(payload?.message, 3000);
-  const website = sanitizeLine(payload?.website, 160);
-  const formStartedAt = Number(payload?.formStartedAt || 0);
+  const name = sanitizeLine(body.name, 120);
+  const email = sanitizeLine(body.email, 160).toLowerCase();
+  const business = sanitizeLine(body.business, 160);
+  const message = sanitizeBlock(body.message, 3000);
+  const website = sanitizeLine(body.website, 160);
+  const formStartedAt = Number(body.formStartedAt || 0);
   const submittedAt = Date.now();
 
   if (website) {
-    return json(200, { ok: true, message: "Thanks, your enquiry has been received." });
+    return sendJson(res, 200, { ok: true, message: "Thanks, your enquiry has been received." });
   }
 
   if (!name || !email || !message) {
-    return json(400, { ok: false, message: "Please complete all required fields." });
+    return sendJson(res, 400, { ok: false, message: "Please complete all required fields." });
   }
 
   if (!validEmail(email)) {
-    return json(400, { ok: false, message: "Please enter a valid email address." });
+    return sendJson(res, 400, { ok: false, message: "Please enter a valid email address." });
   }
 
   if (!formStartedAt || submittedAt - formStartedAt < 2500) {
-    return json(400, { ok: false, message: "Please try again in a moment." });
+    return sendJson(res, 400, { ok: false, message: "Please try again in a moment." });
   }
 
   const escapedMessage = message
@@ -100,46 +104,54 @@ export default async function handler(request) {
     .replace(/>/g, "&gt;")
     .replace(/\n/g, "<br />");
 
-  const emailResponse = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${resendApiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: contactFrom,
-      to: [contactEmail],
-      reply_to: email,
-      subject: `New Frank Sites enquiry from ${name}`,
-      text: [
-        `Name: ${name}`,
-        `Email: ${email}`,
-        `Business: ${business || "Not provided"}`,
-        "",
-        "Project details:",
-        message,
-      ].join("\n"),
-      html: `
-        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #1c1612;">
-          <h2 style="margin: 0 0 16px;">New Frank Sites enquiry</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Business:</strong> ${business || "Not provided"}</p>
-          <p><strong>Project details:</strong></p>
-          <p>${escapedMessage}</p>
-        </div>
-      `,
-    }),
-  });
+  try {
+    const emailResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${resendApiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: contactFrom,
+        to: [contactEmail],
+        reply_to: email,
+        subject: `New Frank Sites enquiry from ${name}`,
+        text: [
+          `Name: ${name}`,
+          `Email: ${email}`,
+          `Business: ${business || "Not provided"}`,
+          "",
+          "Project details:",
+          message,
+        ].join("\n"),
+        html: `
+          <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #1c1612;">
+            <h2 style="margin: 0 0 16px;">New Frank Sites enquiry</h2>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Business:</strong> ${business || "Not provided"}</p>
+            <p><strong>Project details:</strong></p>
+            <p>${escapedMessage}</p>
+          </div>
+        `,
+      }),
+    });
 
-  if (!emailResponse.ok) {
-    const errorText = await emailResponse.text();
-    console.error("Resend error:", errorText);
-    return json(502, {
+    if (!emailResponse.ok) {
+      const errorText = await emailResponse.text();
+      console.error("Resend error:", errorText);
+      return sendJson(res, 502, {
+        ok: false,
+        message: "We could not send your enquiry just now. Please email us directly.",
+      });
+    }
+
+    return sendJson(res, 200, { ok: true, message: "Thanks, your enquiry has been sent." });
+  } catch (error) {
+    console.error("Contact form request failed:", error);
+    return sendJson(res, 500, {
       ok: false,
       message: "We could not send your enquiry just now. Please email us directly.",
     });
   }
-
-  return json(200, { ok: true, message: "Thanks, your enquiry has been sent." });
 }
