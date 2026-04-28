@@ -36,6 +36,14 @@ Recommended values:
 
 For production, verify your sending domain in Resend and replace `CONTACT_FROM` with an address on your own domain.
 
+Current hardening in the contact route:
+
+- origin allowlist with automatic support for same-origin Vercel previews
+- honeypot field
+- minimum submit-time check
+- server-side validation and sanitization
+- basic per-IP rate limiting to protect the free email quota
+
 ## Notes
 
 - `public/robots.txt` and `public/sitemap.xml` are included.
