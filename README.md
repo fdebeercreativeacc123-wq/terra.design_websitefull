@@ -1,6 +1,6 @@
 # Frank Sites Website
 
-Production website for Frank Sites, built with React and Vite.
+Production website for Frank Sites, built with React, Vite, and a Vercel contact API.
 
 ## Scripts
 
@@ -11,16 +11,35 @@ Production website for Frank Sites, built with React and Vite.
 
 ## Deployment (Vercel)
 
-This project is static and deploys directly on Vercel with default Vite settings.
+This project deploys on Vercel with a frontend build plus a serverless contact endpoint.
 
 - Framework preset: `Vite`
 - Build command: `npm run build`
 - Output directory: `dist`
+
+## Contact Form Setup
+
+The contact form now submits to `api/contact.js` on Vercel instead of using FormSubmit.
+
+Add these environment variables in Vercel:
+
+- `RESEND_API_KEY`
+- `CONTACT_EMAIL`
+- `CONTACT_FROM`
+- `ALLOWED_ORIGINS`
+
+Recommended values:
+
+- `CONTACT_EMAIL=franksitesza@gmail.com`
+- `CONTACT_FROM=Frank Sites <onboarding@resend.dev>` for initial testing
+- `ALLOWED_ORIGINS=https://franksites.co,https://www.franksites.co`
+
+For production, verify your sending domain in Resend and replace `CONTACT_FROM` with an address on your own domain.
 
 ## Notes
 
 - `public/robots.txt` and `public/sitemap.xml` are included.
 - `public/site.webmanifest` is included.
 - Metadata and Open Graph tags are defined in `index.html`.
-- Contact form submits via FormSubmit and redirects to `public/thanks.html`.
+- Contact form posts to the Vercel serverless route in `api/contact.js`.
 - SEO settings for React-rendered pages are centralized in `src/seo/siteSeo.js`.

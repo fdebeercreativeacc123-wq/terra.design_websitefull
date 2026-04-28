@@ -3,7 +3,7 @@ import { useEffect, useMemo } from "react";
 export const SITE_CONFIG = {
   brandName: "Frank Sites",
   siteUrl: "https://franksites.co",
-  contactEmail: "frankdesignza@gmail.com",
+  contactEmail: "franksitesza@gmail.com",
   areaServed: "South Africa",
   locale: "en_ZA",
   socialImagePath: "/favicon.svg",
